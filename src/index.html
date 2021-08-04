@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- 🧡 Website title goes here  -->
+        <title>Harvard Map Collection: Mapping Black Boston Demo</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <link rel="stylesheet" href="https://use.typekit.net/yiq3yrx.css">
+        <link rel="stylesheet" href="/typekit/stylesheet.css">
+
+    </head>
+    <body>
+        <div id="wrapper">
+            <header>
+                <div id="header-logo">
+                    <!-- 🧡 Map banner title goes here  -->
+                    <a target ="_blank" href="https://library.harvard.edu/">
+                        <img src="logo-final.svg" alt="Harvard Libraries Logo" id="logo">
+                    </a>
+                    <div id="header-text">
+                        <h1>Mapping Black Boston</h1> 
+                        <div id="subtitle"> A project demo from the <a href="https://library.harvard.edu/libraries/harvard-map-collection" target="blank">Harvard Map Collection</a></div>
+                    </div>
+                </div>
+            </header>
+            <div id="sidebar-wrapper">
+                <div id= "sidebar-text">
+                    <h2>About this project</h2>
+                    <p>The Mapping Black Boston demo project highlights the potential for the Harvard Map Collection to expand access to information about Black History in Boston by building a place-based database. People, places, and events are transcribed from historic texts and maps, and linked with source information. Click on a location for a demo.</p>
+                </div>
+            </div>
+            <div id="map"></div>
+        </div>
+
+        <script src="index.js"></script>
+        <script>
+            (function(d) {
+              var config = {
+                kitId: 'egl2rfx',
+                scriptTimeout: 3000,
+                async: true
+              },
+              h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+            })(document);
+          </script>
+    </body>
+</html>
