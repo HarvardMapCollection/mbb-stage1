@@ -64,7 +64,7 @@ L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_L
 
 function getData(map) {
   // 🧡 Replace with the link to your json data
-  axios.get("https://raw.githubusercontent.com/HarvardMapCollection/mbb-stage1/master/data/historical_data.geojson")
+  axios.get("https://raw.githubusercontent.com/HarvardMapCollection/mbb-stage1/main/src/historical_data.geojson")
       .then(response => {
           var datapoints = response.data.features;
           console.log(datapoints)
