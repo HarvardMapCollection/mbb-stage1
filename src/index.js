@@ -28,9 +28,47 @@ L.Icon.Default.mergeOptions({
 var prevMarker = null; 
 
 
+var modernStreets = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',{
+    tileSize: 512,
+    zoomOffset: -1,
+    minZoom: 1,
+    maxZoom: 16,
+    crossOrigin: true
+})
+
+var sanborn1867= L.tileLayer(
+  'https://s3.us-east-2.wasabisys.com/urbanatlases/39999059012052/tiles/{z}/{x}/{y}.png', {
+      attribution: '<a target="_blank" href ="https://atlascope.leventhalmap.org/#view:share$base:000$overlay:39999059012052$zoom:18.44$center:-7909737.349554351,5214825.127213863$mode:glass$pos:372">Source basemap: Leventhal Map & Education Center, 1867 Sanborn atlas</a>',
+      maxZoom: 20,
+      minZoom:15,
+      maxNativeZoom: 20
+  }
+);
+
+var hopkins1874= L.tileLayer(
+  'https://s3.us-east-2.wasabisys.com/urbanatlases/39999059010650/tiles/{z}/{x}/{y}.png', {
+      attribution: '<a target="_blank" href ="https://atlascope.leventhalmap.org/#view:share$base:000$overlay:39999059010650$zoom:18.00$center:-7912346.729095957,5213468.439949879$mode:glass$pos:279">Source basemap: Leventhal Map & Education Center, 1874 Hopkins atlas</a>',
+      maxZoom: 20,
+      minZoom:15,
+      maxNativeZoom: 20
+  }
+);
+
+
+
+var historicMapOverlays = {
+  "Historic map: 1867": sanborn1867,
+  "Historic map: 1874": hopkins1874
+};
+
+
 var theMap = new L.map('map',{
-  zoomControl:false
-}).setView([42.350,-71.065 ], 14);
+  zoomControl:false,
+  maxZoom: 20,
+  layers: [modernStreets, sanborn1867]
+});
+
+// sanborn1867.addTo(theMap);
 
 L.control.zoom({
   position: 'topright'
@@ -47,19 +85,10 @@ L.control.zoom({
 //   });
 
 theMap.fitBounds([
-  [42.369, -71.092],
-  [42.348, -71.038]
+  [42.360, -71.061],
+  [42.358, -71.055]
 ]);
 
-
-
-L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',{
-    tileSize: 512,
-    zoomOffset: -1,
-    minZoom: 1,
-    attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    crossOrigin: true
-}).addTo(theMap);
 
 
 function getData(map) {
@@ -317,10 +346,10 @@ function getData(map) {
           "1841-1850": markers1850,
           "1851-1860": markers1860,
           "1861-1870": markers1870,
-          "Linked to library resources": markersResources
+          "With library materials": markersResources
         };
 
-          var dataControl = L.control.layers(dataLayers, null, { position: 'bottomright', collapsed: false }).addTo(map);
+          var dataControl = L.control.layers(dataLayers, historicMapOverlays, { position: 'bottomright', collapsed: false }).addTo(map);
 
         // Create markercluster groups for all the layers with a low cluster radius for display at high zoom. 
         // Add a keypress listener for each cluster    
@@ -374,10 +403,11 @@ function getData(map) {
               "1841-1850": markers1850Zoom,
               "1851-1860": markers1860Zoom,
               "1861-1870": markers1870Zoom,
-              "Has Library Resource": markersResourcesZoom
+              "With library materials": markersResourcesZoom
           };
 
-          var dataControlZoom = L.control.layers(dataLayersZoom, null, { position: 'bottomright', collapsed: false });
+
+          var dataControlZoom = L.control.layers(dataLayersZoom, historicMapOverlays, { position: 'bottomright', collapsed: false });
 
           // Boolean that returns true when the zoom is above 17 
           var zoomCheck = false
